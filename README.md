@@ -36,20 +36,31 @@ menu system.
 
 ## Architecture
 
+## Architecture
+
 The project is split into two layers:
 
-core/ — Game logic, engine-agnostic
-├── Card.cs
-├── Deck.cs / Shoe.cs
-├── Hand.cs
-├── Player.cs
-├── PlayerHand.cs
-├── Dealer.cs
-└── GameSettings.cs
+**`core/` — pure game logic, no Godot dependency**
 
-GameManager.cs — Godot orchestration
-CardVisual.cs — Card scene behavior
-Game.tscn — Main scene
+    core/
+    ├── Card.cs
+    ├── Dealer.cs
+    ├── GameSettings.cs
+    ├── Hand.cs
+    ├── Player.cs
+    ├── PlayerHand.cs
+    ├── Rank.cs
+    ├── Shoe.cs
+    └── Suit.cs
+
+**Godot layer — orchestration and presentation**
+
+    GameManager.cs    — scene orchestration, wires core to UI
+    CardVisual.cs     — card scene behavior
+    Game.tscn         — main scene
+    Card.tscn         — card scene
+    DefaultTheme.tres — UI theme
+    GameSettings.tres — table rules resource
 
 The `core/` classes have no knowledge of Godot. They're plain C# and could be
 dropped into a console app, a test project, or a different engine without

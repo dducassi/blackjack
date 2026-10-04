@@ -3,13 +3,13 @@
 A complete blackjack game built in Godot 4 with C#. Playable, configurable,
 and structured with a clean separation between game rules and presentation.
 
+![Blackjack screenshot](docs/bjscreenshot_1.png)
+
 ## What it is
 
-A fully-featured single-player blackjack game against the dealer: a complete implementation 
-of standard Vegas rules with configurable table settings, animated card dealing, sound, music and a proper
-menu system.
-
-![Blackjack screenshot](docs/bjscreenshot_1.png)
+A fully-featured single-player blackjack game against the dealer. Implements 
+standard Vegas rules with configurable table settings, animated card dealing, 
+sound, music, and a proper menu system.
 
 ## Rules implemented
 
@@ -66,11 +66,6 @@ dropped into a console app, a test project, or a different engine without
 modification. `GameManager` is the only class that touches both the domain
 model and the Godot scene tree.
 
-This separation is deliberate. It means the rules, which are genuinely
-fiddly in blackjack (particularly around Aces and splits), can be tested in
-isolation, and the presentation layer can be refactored without risking
-rule regressions.
-
 ## Building
 
 Requires:
@@ -81,8 +76,8 @@ Open the project in Godot, build once (hammer icon), and run. The main scene
 is `Game.tscn`.
 
 For an exported build, make sure the export preset includes:
-licenses/*.txt
 
+    licenses/*.txt
 
 under **Resources → Filters to export non-resource files/folders**. Without
 this, the Legal screen will be empty in the exported game.

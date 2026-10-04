@@ -1,0 +1,614 @@
+[gd_scene format=3 uid="uid://bg7sx2e3vj6af"]
+
+[ext_resource type="Script" uid="uid://f74mxwg6jdsx" path="res://GameManager.cs" id="1_80nbo"]
+
+[node name="Game" type="Control" unique_id=613691451]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_80nbo")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1787278812]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13545021, 0.37864006, 0.23086634, 1)
+
+[node name="MessageLayer" type="CanvasLayer" parent="." unique_id=441127398]
+
+[node name="MessageLabel" type="Label" parent="MessageLayer" unique_id=1537403594]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -620.0
+offset_top = -17.0
+offset_right = 620.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainLayout" type="MarginContainer" parent="." unique_id=474083992]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 60
+
+[node name="VBox" type="VBoxContainer" parent="MainLayout" unique_id=1634543885]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TopBar" type="HBoxContainer" parent="MainLayout/VBox" unique_id=641765658]
+layout_mode = 2
+
+[node name="BankrollLabel" type="Label" parent="MainLayout/VBox/TopBar" unique_id=269542273]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Bankroll: 0
+"
+
+[node name="Spacer" type="Control" parent="MainLayout/VBox/TopBar" unique_id=221437181]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ShoeLabel" type="Label" parent="MainLayout/VBox/TopBar" unique_id=897986610]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Shoe: 0"
+
+[node name="OptionsScreen" type="Control" parent="MainLayout/VBox/TopBar/ShoeLabel" unique_id=111090190]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen" unique_id=1524756556]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13725491, 0.38039216, 0.23137255, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen" unique_id=953041491]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen/CenterContainer" unique_id=692724200]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="OptionsTitle" type="Label" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen/CenterContainer/VBoxContainer" unique_id=2116693502]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "OPTIONS"
+horizontal_alignment = 1
+
+[node name="SfxButton" type="Button" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen/CenterContainer/VBoxContainer" unique_id=1197339529]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "SOUND: ON"
+
+[node name="MusicButton" type="Button" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen/CenterContainer/VBoxContainer" unique_id=225755393]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "MUSIC:: ON"
+
+[node name="OptionsBackButton" type="Button" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen/CenterContainer/VBoxContainer" unique_id=269850110]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "BACK"
+
+[node name="OptionsScreen" type="Control" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen" unique_id=1835421925]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen/OptionsScreen" unique_id=1072907229]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13725491, 0.38039216, 0.23137255, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen/OptionsScreen" unique_id=1052431946]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen/OptionsScreen/CenterContainer" unique_id=417149681]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="OptionsTitle" type="Label" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen/OptionsScreen/CenterContainer/VBoxContainer" unique_id=1473238461]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "OPTIONS"
+horizontal_alignment = 1
+
+[node name="SfxButton" type="Button" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen/OptionsScreen/CenterContainer/VBoxContainer" unique_id=1995348947]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "SOUND: ON"
+
+[node name="MusicButton" type="Button" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen/OptionsScreen/CenterContainer/VBoxContainer" unique_id=858329371]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "MUSIC:: ON"
+
+[node name="OptionsBackButton" type="Button" parent="MainLayout/VBox/TopBar/ShoeLabel/OptionsScreen/OptionsScreen/CenterContainer/VBoxContainer" unique_id=1939209358]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "BACK"
+
+[node name="DealerLabel" type="Label" parent="MainLayout/VBox" unique_id=1194587101]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "DEALER"
+horizontal_alignment = 1
+
+[node name="DealerCards" type="HBoxContainer" parent="MainLayout/VBox" unique_id=382128665]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Spacer" type="Control" parent="MainLayout/VBox" unique_id=1928540332]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerCards" type="HBoxContainer" parent="MainLayout/VBox" unique_id=469667996]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="PlayerLabel" type="Label" parent="MainLayout/VBox" unique_id=1357380801]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "PLAYER"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="BetLabel" type="Label" parent="MainLayout/VBox" unique_id=1740734830]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+vertical_alignment = 2
+
+[node name="BottomBar" type="MarginContainer" parent="." unique_id=1083696610]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="BottomVBox" type="VBoxContainer" parent="BottomBar" unique_id=168112136]
+layout_mode = 2
+
+[node name="BetButtons" type="HBoxContainer" parent="BottomBar/BottomVBox" unique_id=1329991473]
+layout_mode = 2
+alignment = 1
+
+[node name="Bet10" type="Button" parent="BottomBar/BottomVBox/BetButtons" unique_id=955371849]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Bet $10
+"
+
+[node name="Bet20" type="Button" parent="BottomBar/BottomVBox/BetButtons" unique_id=17895525]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Bet $20
+"
+
+[node name="Bet50" type="Button" parent="BottomBar/BottomVBox/BetButtons" unique_id=909859483]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Bet $50
+"
+
+[node name="Bet100" type="Button" parent="BottomBar/BottomVBox/BetButtons" unique_id=1559650267]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Bet $100
+"
+
+[node name="ActionButtons" type="HBoxContainer" parent="BottomBar/BottomVBox" unique_id=1689357016]
+layout_mode = 2
+alignment = 1
+
+[node name="HitButton" type="Button" parent="BottomBar/BottomVBox/ActionButtons" unique_id=643351082]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "HIT"
+
+[node name="StandButton" type="Button" parent="BottomBar/BottomVBox/ActionButtons" unique_id=1836853864]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "STAND"
+
+[node name="DoubleButton" type="Button" parent="BottomBar/BottomVBox/ActionButtons" unique_id=1545360511]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "DOUBLE"
+
+[node name="SplitButton" type="Button" parent="BottomBar/BottomVBox/ActionButtons" unique_id=60460416]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "SPLIT
+"
+
+[node name="InsurancePanel" type="HBoxContainer" parent="BottomBar/BottomVBox" unique_id=1082429691]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="BottomBar/BottomVBox/InsurancePanel" unique_id=569359986]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Take Insurance?"
+
+[node name="InsuranceYes" type="Button" parent="BottomBar/BottomVBox/InsurancePanel" unique_id=1381251511]
+layout_mode = 2
+text = "Yes"
+
+[node name="InsuranceNo" type="Button" parent="BottomBar/BottomVBox/InsurancePanel" unique_id=1127231600]
+layout_mode = 2
+text = "No"
+
+[node name="RestartButton" type="Button" parent="BottomBar/BottomVBox" unique_id=1706038153]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "RESTART"
+
+[node name="StartScreen" type="Control" parent="." unique_id=112725514]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="StartScreen" unique_id=248696751]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13725491, 0.38039216, 0.23137255, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="StartScreen" unique_id=1547838323]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="VBoxContainer" parent="StartScreen/CenterContainer" unique_id=2078020236]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/Menu" unique_id=565195263]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "MOUNTAIN SALOON 
+BLACKJACK"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="StartScreen/CenterContainer/Menu" unique_id=562684348]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "START
+"
+
+[node name="RulesButton" type="Button" parent="StartScreen/CenterContainer/Menu" unique_id=1691892914]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "HOUSE RULES
+"
+
+[node name="OptionsButton" type="Button" parent="StartScreen/CenterContainer/Menu" unique_id=629544485]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "OPTIONS"
+
+[node name="CreditsButton" type="Button" parent="StartScreen/CenterContainer/Menu" unique_id=1488339003]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "CREDITS"
+
+[node name="HouseRulesScreen" type="Control" parent="." unique_id=1877440679]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="HouseRulesScreen" unique_id=1967298784]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13725491, 0.38039216, 0.23137255, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="HouseRulesScreen" unique_id=1124477757]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Content" type="VBoxContainer" parent="HouseRulesScreen/MarginContainer" unique_id=1743189359]
+layout_mode = 2
+
+[node name="RulesTitle" type="Label" parent="HouseRulesScreen/MarginContainer/Content" unique_id=1743078693]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "HOUSE RULES"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HouseRulesScreen/MarginContainer/Content" unique_id=102469223]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RulesText" type="Label" parent="HouseRulesScreen/MarginContainer/Content/ScrollContainer" unique_id=969925564]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Decks: 6
+
+Dealer stands on all 17s.
+
+Blackjack pays 3:2.
+
+Double down on any first two cards.
+Double after split allowed.
+No double after splitting Aces.
+
+Split up to 4 hands.
+Split Aces receive one card each and cannot be resplit.
+21 on a split hand pays 1:1.
+
+Insurance offered when the dealer shows an Ace.
+Insurance pays 2:1.
+
+No surrender.
+
+Minimum bet: 10.
+Starting bankroll: 100."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="BackButton" type="Button" parent="HouseRulesScreen/MarginContainer/Content" unique_id=311364687]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "BACK"
+
+[node name="OptionsScreen" type="Control" parent="." unique_id=1293911601]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="OptionsScreen" unique_id=15443258]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13725491, 0.38039216, 0.23137255, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="OptionsScreen" unique_id=2064095810]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="OptionsScreen/CenterContainer" unique_id=331991588]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="OptionsTitle" type="Label" parent="OptionsScreen/CenterContainer/VBox" unique_id=802214484]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "OPTIONS"
+horizontal_alignment = 1
+
+[node name="SfxButton" type="Button" parent="OptionsScreen/CenterContainer/VBox" unique_id=1676684881]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "SOUND: ON"
+
+[node name="MusicButton" type="Button" parent="OptionsScreen/CenterContainer/VBox" unique_id=1858251689]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "MUSIC:: ON"
+
+[node name="DecksButton" type="Button" parent="OptionsScreen/CenterContainer/VBox" unique_id=1758216262]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "DECKS: 6"
+
+[node name="HitSoft17Button" type="Button" parent="OptionsScreen/CenterContainer/VBox" unique_id=776922855]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "HIT SOFT 17: NO"
+
+[node name="OptionsBackButton" type="Button" parent="OptionsScreen/CenterContainer/VBox" unique_id=667557880]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "BACK"
+
+[node name="CreditsScreen" type="Control" parent="." unique_id=1968643198]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="CreditsScreen" unique_id=206090454]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13725491, 0.38039216, 0.23137255, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="CreditsScreen" unique_id=1119413880]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CreditsScreen/CenterContainer" unique_id=1410756046]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="CreditsScreen/CenterContainer/VBox" unique_id=1760430676]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "CREDITS"
+
+[node name="CreditsText" type="Label" parent="CreditsScreen/CenterContainer/VBox" unique_id=309939230]
+layout_mode = 2
+text = "Programming and Design: Daniel Ducassi
+Graphics: Daniel Ducassi
+Sound: Daniel Ducassi
+Music: \"The Entertainer\" by Scott Joplin"
+
+[node name="LegalButton" type="Button" parent="CreditsScreen/CenterContainer/VBox" unique_id=791665006]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "LEGAL"
+
+[node name="CreditsBackButton" type="Button" parent="CreditsScreen/CenterContainer/VBox" unique_id=1834940838]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "BACK"
+
+[node name="LegalScreen" type="Control" parent="." unique_id=1917724865]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="LegalScreen" unique_id=2117710966]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13725491, 0.38039216, 0.23137255, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="LegalScreen" unique_id=629971990]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBox" type="VBoxContainer" parent="LegalScreen/MarginContainer" unique_id=964905974]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="LegalScreen/MarginContainer/VBox" unique_id=72944926]
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "LEGAL"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LegalScreen/MarginContainer/VBox" unique_id=1810011573]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LicenseText" type="Label" parent="LegalScreen/MarginContainer/VBox/ScrollContainer" unique_id=522885303]
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/line_spacing = 2
+autowrap_mode = 2
+
+[node name="LegalBackButton" type="Button" parent="LegalScreen/MarginContainer/VBox" unique_id=1744705321]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "BACK"

@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Blackjack"
+config/name="Mountain Saloon Blackjack"
 run/main_scene="uid://bg7sx2e3vj6af"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="uid://by5811ol5c6rg"

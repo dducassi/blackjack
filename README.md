@@ -3,7 +3,7 @@
 A complete blackjack game built in Godot 4 with C#. Playable, configurable,
 and structured with a clean separation between game rules and presentation.
 
-# What it is
+## What it is
 
 A fully-featured single-player blackjack game against the dealer. Not a
 prototype — a complete implementation of standard Vegas rules with
@@ -33,8 +33,6 @@ menu system.
 - Options menu for sound, music, deck count, and H17/S17
 - Dynamic house rules screen that reflects current settings
 - Credits and legal screens with third-party license attribution
-
-## Architecture
 
 ## Architecture
 

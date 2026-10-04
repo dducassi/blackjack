@@ -289,65 +289,72 @@ public partial class GameManager : Control
 
     // ----- Card visuals -----
 
-    private async Task SlideCardInAsync(Control card)
-    {
-        card.Modulate = new Color(1, 1, 1, 0);
+		private async Task SlideCardInAsync(Control card)
+	{
+		card.Modulate = new Color(1, 1, 1, 0);
+		card.Position = CardSlideOffset;
 
-        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		PlayCardSound();
 
-        Vector2 finalPos = card.Position;
-        card.Position = finalPos + CardSlideOffset;
+		Tween tween = card.CreateTween();
+		tween.SetParallel(true);
+		tween.TweenProperty(card, "position", Vector2.Zero, CardSlideSeconds);
+		tween.TweenProperty(card, "modulate:a", 1.0f, CardSlideSeconds);
+		await ToSignal(tween, Tween.SignalName.Finished);
+	}
 
-        PlayCardSound();
+	private async Task<CardVisual> AddDealerCardVisualAsync(Card card, bool faceDown = false)
+	{
+		var wrapper = new Control { CustomMinimumSize = new Vector2(80, 120) };
+		_dealerCards.AddChild(wrapper);
 
-        Tween tween = card.CreateTween();
-        tween.SetParallel(true);
-        tween.TweenProperty(card, "position", finalPos, CardSlideSeconds);
-        tween.TweenProperty(card, "modulate:a", 1.0f, CardSlideSeconds);
-        await ToSignal(tween, Tween.SignalName.Finished);
-    }
+		CardVisual visual = _cardScene.Instantiate<CardVisual>();
+		wrapper.AddChild(visual);
 
-    private async Task<CardVisual> AddDealerCardVisualAsync(Card card, bool faceDown = false)
-    {
-        CardVisual visual = _cardScene.Instantiate<CardVisual>();
-        _dealerCards.AddChild(visual);
+		if (faceDown)
+		{
+			visual.SetFaceDown();
+		}
+		else
+		{
+			visual.SetCard(card);
+		}
 
-        if (faceDown)
-        {
-            visual.SetFaceDown();
-        }
-        else
-        {
-            visual.SetCard(card);
-        }
+		await SlideCardInAsync(visual);
+		return visual;
+	}
 
-        await SlideCardInAsync(visual);
-        return visual;
-    }
+	private async Task AppendPlayerCardVisualAsync(int handIndex, Card card)
+	{
+		HBoxContainer row = _handCardRows[handIndex];
 
-    private async Task AppendPlayerCardVisualAsync(int handIndex, Card card)
-    {
-        HBoxContainer row = _handCardRows[handIndex];
-        CardVisual visual = _cardScene.Instantiate<CardVisual>();
-        row.AddChild(visual);
-        visual.SetCard(card);
-        await SlideCardInAsync(visual);
-    }
+		var wrapper = new Control { CustomMinimumSize = new Vector2(80, 120) };
+		row.AddChild(wrapper);
 
-    private void RenderHandCards(int handIndex)
-    {
-        HBoxContainer row = _handCardRows[handIndex];
-        foreach (Node child in row.GetChildren())
-        {
-            child.QueueFree();
-        }
-        foreach (Card c in _player.Hands[handIndex].Hand.Cards)
-        {
-            CardVisual visual = _cardScene.Instantiate<CardVisual>();
-            row.AddChild(visual);
-            visual.SetCard(c);
-        }
-    }
+		CardVisual visual = _cardScene.Instantiate<CardVisual>();
+		wrapper.AddChild(visual);
+		visual.SetCard(card);
+
+		await SlideCardInAsync(visual);
+	}
+
+	private void RenderHandCards(int handIndex)
+	{
+		HBoxContainer row = _handCardRows[handIndex];
+		foreach (Node child in row.GetChildren())
+		{
+			child.QueueFree();
+		}
+		foreach (Card c in _player.Hands[handIndex].Hand.Cards)
+		{
+			var wrapper = new Control { CustomMinimumSize = new Vector2(80, 120) };
+			row.AddChild(wrapper);
+
+			CardVisual visual = _cardScene.Instantiate<CardVisual>();
+			wrapper.AddChild(visual);
+			visual.SetCard(c);
+		}
+	}
 
     // ----- Bankroll flash -----
 

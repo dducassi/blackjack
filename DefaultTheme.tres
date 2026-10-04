@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://cprmegjhxi5p0"]
+
+[ext_resource type="FontFile" uid="uid://bvhradmvgmrv7" path="res://fonts/Sancreek/Sancreek-Regular.ttf" id="1_ihngy"]
+
+[resource]
+default_font = ExtResource("1_ihngy")

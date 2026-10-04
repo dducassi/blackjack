@@ -1,12 +1,9 @@
-# blackjack
-Blackjack game engine + Godot 4 frontend, written in C#.
-
 # Blackjack
 
 A complete blackjack game built in Godot 4 with C#. Playable, configurable,
 and structured with a clean separation between game rules and presentation.
 
-## What it is
+# What it is
 
 A fully-featured single-player blackjack game against the dealer. Not a
 prototype — a complete implementation of standard Vegas rules with
@@ -63,20 +60,6 @@ This separation is deliberate. It means the rules, which are genuinely
 fiddly in blackjack (particularly around Aces and splits), can be tested in
 isolation, and the presentation layer can be refactored without risking
 rule regressions.
-
-### Domain tests
-
-The `Blackjack.Tests` project (xUnit) covers the tricky parts of the
-ruleset:
-
-- Ace handling in `Hand` — soft/hard totals, multiple Aces
-- Split logic — hand creation, Ace split finishing, max hand limits
-- Payout calculations — blackjack, push, split payouts
-- Insurance placement and payout
-
-Run with:
-dotnet test Blackjack.Tests/Blackjack.Tests.csproj
-
 
 ## Building
 

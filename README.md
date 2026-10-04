@@ -10,7 +10,7 @@ prototype — a complete implementation of standard Vegas rules with
 configurable table settings, animated card dealing, sound, and a proper
 menu system.
 
-![Blackjack screenshot](docs/screenshot.png)
+![Blackjack screenshot](docs/bjscreenshot_1.png)
 
 ## Rules implemented
 

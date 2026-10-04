@@ -6,7 +6,7 @@ and structured with a clean separation between game rules and presentation.
 ## What it is
 
 A fully-featured single-player blackjack game against the dealer: a complete implementation 
-of standard Vegas rules withconfigurable table settings, animated card dealing, sound, and a proper
+of standard Vegas rules with configurable table settings, animated card dealing, sound, music and a proper
 menu system.
 
 ![Blackjack screenshot](docs/bjscreenshot_1.png)

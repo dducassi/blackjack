@@ -3,7 +3,7 @@
 A complete blackjack game built in Godot 4 with C#. Playable, configurable,
 and structured with a clean separation between game rules and presentation.
 
-![Blackjack screenshot](docs/bjscreenshot_1.png)
+![Blackjack screenshot](docs/MSBJ_screenshot_1.png)
 
 ## What it is
 

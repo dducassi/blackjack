@@ -107,7 +107,7 @@ public partial class GameManager : Control
     private const int PayoutStackHorizontalGap = 20;   // gap between bet and payout stacks within a hand
 	private const int HandStackHorizontalGap = 20;     // gap between separate hands
     private const float ChipSlideSeconds = 0.5f;
-    private const float ChipSlideDistance = 120f;
+    private const float ChipSlideDistance = 180f;
     private const float ChipFadeSeconds = 0.3f;
 
     private static readonly Vector2 CardSlideOffset = new(200, -400);
@@ -1063,7 +1063,7 @@ public partial class GameManager : Control
             return;
         }
 
-        var timer = GetTree().CreateTimer(3);
+        var timer = GetTree().CreateTimer(2);
         timer.Timeout += async () => await PrepareForBettingAsync();
     }
 

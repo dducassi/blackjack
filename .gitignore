@@ -7,3 +7,5 @@ export_presets.cfg
 *.user
 .DS_Store
 Thumbs.db
+*.zip
+data_*/

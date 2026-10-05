@@ -38,4 +38,9 @@ public partial class BettingArc : Control
 
         DrawArc(center, radius, startAngle, endAngle, PointCount, LineColor, LineWidth, true);
     }
+
+    public override void _Ready()
+    {
+        Resized += QueueRedraw;
+    }
 }

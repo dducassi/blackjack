@@ -180,6 +180,8 @@ public partial class GameManager : Control
         _chipStack = GetNode<Control>("ChipOverlay/ChipStack");
         _chipCanvas = new Control { MouseFilter = MouseFilterEnum.Ignore };
         _chipStack.AddChild(_chipCanvas);
+        _chipStack.Resized += RebuildChipStack;
+        SetupChipOverlayLayout();
 
         _bet10Button.Pressed  += () => AddChipToPendingBet(10);
         _bet20Button.Pressed  += () => AddChipToPendingBet(20);
@@ -363,6 +365,36 @@ public partial class GameManager : Control
     }
 
     // ----- Chip stack rendering -----
+
+    private void SetupChipOverlayLayout()
+    {
+        // The ChipOverlay should sit in the same play area as the cards, so it
+        // matches MainLayout's rect: full-width, with the bottom edge stopped
+        // 180px above the screen bottom for the BottomBar.
+        var overlay = GetNode<Control>("ChipOverlay");
+        overlay.SetAnchorsPreset(Control.LayoutPreset.FullRect);
+        overlay.OffsetLeft = 20;
+        overlay.OffsetTop = 20;
+        overlay.OffsetRight = -20;
+        overlay.OffsetBottom = -350;
+
+        // ChipStack: anchored to the bottom of the overlay. Its bottom edge
+        // sits 20px above the arc; its top edge is 320px above that, giving
+        // room for tall stacks.
+        _chipStack.SetAnchorsPreset(Control.LayoutPreset.BottomWide);
+        _chipStack.OffsetLeft = 0;
+        _chipStack.OffsetRight = 0;
+        _chipStack.OffsetTop = -320;
+        _chipStack.OffsetBottom = -20;
+
+        // BettingArc: 50px tall, sitting just below the ChipStack's baseline.
+        var arc = GetNode<Control>("ChipOverlay/BettingArc");
+        arc.SetAnchorsPreset(Control.LayoutPreset.BottomWide);
+        arc.OffsetLeft = 0;
+        arc.OffsetRight = 0;
+        arc.OffsetTop = -50;
+        arc.OffsetBottom = 0;
+    }
 
     private void RebuildChipStack()
 	{

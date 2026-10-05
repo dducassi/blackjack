@@ -337,7 +337,7 @@ alignment = 1
 [node name="Label" type="Label" parent="BottomBar/BottomVBox/InsurancePanel" unique_id=569359986]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Take Insurance?"
+text = "Take insurance?"
 
 [node name="InsuranceYes" type="Button" parent="BottomBar/BottomVBox/InsurancePanel" unique_id=1381251511]
 layout_mode = 2

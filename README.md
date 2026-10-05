@@ -7,9 +7,9 @@ and structured with a clean separation between game rules and presentation.
 
 ## What it is
 
-A fully-featured single-player blackjack game against the dealer. Implements 
-standard Vegas rules with configurable table settings, animated card dealing, 
-sound, music, and a proper menu system.
+A fully-featured single-player blackjack game against the dealer. Implements
+standard Vegas rules with configurable table settings, animated card dealing,
+visual chip stacks, sound, music, and a proper menu system.
 
 ## Rules implemented
 
@@ -26,6 +26,11 @@ sound, music, and a proper menu system.
 
 ## Features
 
+- Click-to-build betting: place chips one at a time, then deal
+- Visual chip stacks in $5, $10, $20, $50, and $100 denominations
+- Separate bet and payout stacks, with per-hand stacks on a split
+- Chip settlement animation: stacks slide toward the winner independently
+- Curved betting arc separating the dealer and player areas
 - Animated card dealing with slide-in and hole-card flip
 - Procedural crosshatch card backs, generated at runtime
 - Chip, card, and shuffle sound effects with pitch variation
@@ -56,7 +61,9 @@ The project is split into two layers:
 
     GameManager.cs    — scene orchestration, wires core to UI
     CardVisual.cs     — card scene behavior
-    Game.tscn         — main scene
+    ChipVisual.cs     — casino chip rendering (concentric circles)
+    BettingArc.cs     — curved betting line
+    game.tscn         — main scene
     Card.tscn         — card scene
     DefaultTheme.tres — UI theme
     GameSettings.tres — table rules resource
@@ -73,7 +80,7 @@ Requires:
 - .NET 8 SDK or later
 
 Open the project in Godot, build once (hammer icon), and run. The main scene
-is `Game.tscn`.
+is `game.tscn`.
 
 For an exported build, make sure the export preset includes:
 

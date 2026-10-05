@@ -4,39 +4,41 @@ namespace Blackjack;
 
 /// <summary>
 /// A single casino chip rendered as concentric circles:
-///   - outermost 1px ring in the chip's main color
-///   - a 4px white border (black for the $5 chip)
+///   - outermost black outline
+///   - a ring in the chip's main color
+///   - a white border (black for the $5 chip)
 ///   - an inner fill in the chip's main color where the denomination sits
 /// </summary>
 public partial class ChipVisual : Control
 {
     public const int ChipSize = 50;
-    private const int BorderWidth = 3;      // width of the white (or black) ring
-    private const int OuterRingWidth = 3;   // 4px ring in the chip's main color, outside the border
+    private const int BorderWidth = 3;       // width of the white (or black) ring
+    private const int OuterRingWidth = 3;    // ring in the chip's main color, outside the white border
+    private const int BlackOutlineWidth = 1; // outermost black outline
 
     public int Denomination { get; private set; }
 
     private Label _label = null!;
 
     public override void _Ready()
-	{
-		CustomMinimumSize = new Vector2(ChipSize, ChipSize);
-		Size = new Vector2(ChipSize, ChipSize);
-		MouseFilter = MouseFilterEnum.Ignore;
+    {
+        CustomMinimumSize = new Vector2(ChipSize, ChipSize);
+        Size = new Vector2(ChipSize, ChipSize);
+        MouseFilter = MouseFilterEnum.Ignore;
 
-		_label = new Label
-		{
-			Position = Vector2.Zero,
-			Size = new Vector2(ChipSize, ChipSize),
-			HorizontalAlignment = HorizontalAlignment.Center,
-			VerticalAlignment = VerticalAlignment.Center,
-			MouseFilter = MouseFilterEnum.Ignore,
-		};
-		AddChild(_label);
+        _label = new Label
+        {
+            Position = Vector2.Zero,
+            Size = new Vector2(ChipSize, ChipSize),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            MouseFilter = MouseFilterEnum.Ignore,
+        };
+        AddChild(_label);
 
-		UpdateLabel();
-		QueueRedraw();
-	}
+        UpdateLabel();
+        QueueRedraw();
+    }
 
     public void SetDenomination(int denom)
     {
@@ -61,15 +63,19 @@ public partial class ChipVisual : Control
         var (fill, border, _) = GetColors();
         Vector2 center = new Vector2(ChipSize / 2f, ChipSize / 2f);
         float outerR = ChipSize / 2f;
+        var black = new Color(0f, 0f, 0f);
 
-        // Outermost ring in the chip's main color (the "another outline" addition).
-        DrawCircle(center, outerR, fill, true, -1f, true);
+        // Outermost black outline.
+        DrawCircle(center, outerR, black, true, -1f, true);
 
-        // White (or black for $5) border inside that ring.
-        DrawCircle(center, outerR - OuterRingWidth, border, true, -1f, true);
+        // Chip's main color ring inside the black outline.
+        DrawCircle(center, outerR - BlackOutlineWidth, fill, true, -1f, true);
+
+        // White (or black for $5) border inside that.
+        DrawCircle(center, outerR - BlackOutlineWidth - OuterRingWidth, border, true, -1f, true);
 
         // Inner fill in the chip's main color.
-        DrawCircle(center, outerR - OuterRingWidth - BorderWidth, fill, true, -1f, true);
+        DrawCircle(center, outerR - BlackOutlineWidth - OuterRingWidth - BorderWidth, fill, true, -1f, true);
     }
 
     private (Color fill, Color border, Color text) GetColors()

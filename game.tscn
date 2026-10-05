@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bg7sx2e3vj6af"]
 
 [ext_resource type="Script" uid="uid://f74mxwg6jdsx" path="res://GameManager.cs" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://cbndc0bb1finf" path="res://BettingArc.cs" id="2_e2o6t"]
 
 [node name="Game" type="Control" unique_id=613691451]
 layout_mode = 3
@@ -212,6 +213,39 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 vertical_alignment = 2
 
+[node name="ChipOverlay" type="Control" parent="." unique_id=1889031310]
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 1260.0
+offset_bottom = 660.0
+
+[node name="BettingArc" type="Control" parent="ChipOverlay" unique_id=1063056430]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -360.0
+offset_bottom = -300.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("2_e2o6t")
+LineWidth = 5.0
+ArcDepth = 60.0
+
+[node name="ChipStack" type="Control" parent="ChipOverlay" unique_id=604773962]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -470.0
+offset_bottom = -290.0
+grow_horizontal = 2
+grow_vertical = 0
+
 [node name="BottomBar" type="MarginContainer" parent="." unique_id=1083696610]
 layout_mode = 1
 anchors_preset = 12
@@ -224,6 +258,23 @@ theme_override_constants/margin_bottom = 20
 
 [node name="BottomVBox" type="VBoxContainer" parent="BottomBar" unique_id=168112136]
 layout_mode = 2
+
+[node name="DealButtons" type="HBoxContainer" parent="BottomBar/BottomVBox" unique_id=2016005234]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="DealButton" type="Button" parent="BottomBar/BottomVBox/DealButtons" unique_id=20259695]
+custom_minimum_size = Vector2(80, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "DEAL"
+
+[node name="ClearButton" type="Button" parent="BottomBar/BottomVBox/DealButtons" unique_id=377869770]
+custom_minimum_size = Vector2(80, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "CLEAR"
 
 [node name="BetButtons" type="HBoxContainer" parent="BottomBar/BottomVBox" unique_id=1329991473]
 layout_mode = 2

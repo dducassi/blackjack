@@ -812,30 +812,29 @@ public partial class GameManager : Control
     {
         PlayerHand ph = _player.Hands[0];
 
-        // RIGGED: player gets Ace + King (blackjack), dealer gets 7 + 9
-        Card c1 = new Card(Suit.Hearts, Rank.Ace);
+        Card c1 = DrawCard();
         ph.Hand.Add(c1);
         await AppendPlayerCardVisualAsync(0, c1);
         UpdatePlayerLabel();
         UpdateHandLabels();
         await Delay(0.15);
 
-        Card d1 = new Card(Suit.Spades, Rank.Ace);
+        Card d1 = DrawCard();
         _dealer.Hand.Add(d1);
         await AddDealerCardVisualAsync(d1);
         await Delay(0.15);
 
-        Card c2 = new Card(Suit.Diamonds, Rank.Ace);
+        Card c2 = DrawCard();
         ph.Hand.Add(c2);
         await AppendPlayerCardVisualAsync(0, c2);
         UpdatePlayerLabel();
         UpdateHandLabels();
         await Delay(0.15);
 
-        Card d2 = new Card(Suit.Clubs, Rank.Six);
+        Card d2 = DrawCard();
         _dealer.Hand.Add(d2);
         _holeCardVisual = await AddDealerCardVisualAsync(d2, faceDown: true);
-    }
+}
 
 
 

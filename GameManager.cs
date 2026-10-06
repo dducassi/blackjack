@@ -48,6 +48,7 @@ public partial class GameManager : Control
     private List<List<int>> _payoutChipsPerHand = new() { new List<int>() };
     private List<HandOutcome> _handOutcomes = new();
     private List<Control> _handChipContainers = new();
+    private List<Control> _payoutChipContainers = new();
 
     private HBoxContainer _dealButtons = null!;
     private Button _bet10Button = null!;
@@ -103,12 +104,12 @@ public partial class GameManager : Control
     private const int ChipStackRightMargin = 40;
     private const int ChipStackBottomMargin = 20;
     private const int ChipOverlapOffset = 5;
-    private const int ChipStackGapBetweenStacks = 15;
     private const int PayoutStackHorizontalGap = 20;   // gap between bet and payout stacks within a hand
 	private const int HandStackHorizontalGap = 20;     // gap between separate hands
     private const float ChipSlideSeconds = 0.5f;
     private const float ChipSlideDistance = 180f;
     private const float ChipFadeSeconds = 0.3f;
+
 
     private static readonly Vector2 CardSlideOffset = new(200, -400);
 
@@ -401,6 +402,7 @@ public partial class GameManager : Control
 		foreach (Node child in _chipCanvas.GetChildren())
 			child.QueueFree();
 		_handChipContainers.Clear();
+        _payoutChipContainers.Clear();
 
 		int handCount = _betChipsPerHand.Count;
 		if (handCount == 0) return;
@@ -442,19 +444,25 @@ public partial class GameManager : Control
 				y -= ChipOverlapOffset;
 			}
 
-			// Draw payout chips (left stack, growing upward from the same baseline).
-			if (h < _payoutChipsPerHand.Count && _payoutChipsPerHand[h].Count > 0)
-			{
-				float py = baseY;
-				foreach (int denom in _payoutChipsPerHand[h])
-				{
-					var chip = new ChipVisual();
-					container.AddChild(chip);
-					chip.Position = new Vector2(payoutX, py);
-					chip.SetDenomination(denom);
-					py -= ChipOverlapOffset;
-				}
-			}
+			// Payout chips (left slot) go in a sub-container so they can slide
+            // independently of the bet chips (used for the insurance-loss animation).
+            var payoutContainer = new Control { MouseFilter = MouseFilterEnum.Ignore };
+            container.AddChild(payoutContainer);
+            payoutContainer.Position = new Vector2(payoutX, 0);
+            _payoutChipContainers.Add(payoutContainer);
+
+            if (h < _payoutChipsPerHand.Count && _payoutChipsPerHand[h].Count > 0)
+            {
+                float py = baseY;
+                foreach (int denom in _payoutChipsPerHand[h])
+                {
+                    var chip = new ChipVisual();
+                    payoutContainer.AddChild(chip);
+                    chip.Position = new Vector2(0, py);
+                    chip.SetDenomination(denom);
+                    py -= ChipOverlapOffset;
+                }
+            }
 		}
 	}
 
@@ -466,6 +474,7 @@ public partial class GameManager : Control
         _payoutChipsPerHand.Add(new List<int>());
         _handOutcomes.Clear();
         _handChipContainers.Clear();
+        _payoutChipContainers.Clear(); 
         foreach (Node child in _chipCanvas.GetChildren())
             child.QueueFree();
         _chipCanvas.Position = Vector2.Zero;
@@ -803,29 +812,32 @@ public partial class GameManager : Control
     {
         PlayerHand ph = _player.Hands[0];
 
-        Card c1 = DrawCard();
+        // RIGGED: player gets Ace + King (blackjack), dealer gets 7 + 9
+        Card c1 = new Card(Suit.Hearts, Rank.Ace);
         ph.Hand.Add(c1);
         await AppendPlayerCardVisualAsync(0, c1);
         UpdatePlayerLabel();
         UpdateHandLabels();
         await Delay(0.15);
 
-        Card d1 = DrawCard();
+        Card d1 = new Card(Suit.Spades, Rank.Ace);
         _dealer.Hand.Add(d1);
         await AddDealerCardVisualAsync(d1);
         await Delay(0.15);
 
-        Card c2 = DrawCard();
+        Card c2 = new Card(Suit.Diamonds, Rank.Ace);
         ph.Hand.Add(c2);
         await AppendPlayerCardVisualAsync(0, c2);
         UpdatePlayerLabel();
         UpdateHandLabels();
         await Delay(0.15);
 
-        Card d2 = DrawCard();
+        Card d2 = new Card(Suit.Clubs, Rank.Six);
         _dealer.Hand.Add(d2);
         _holeCardVisual = await AddDealerCardVisualAsync(d2, faceDown: true);
     }
+
+
 
     private async Task RevealHoleCardAsync()
     {
@@ -1105,22 +1117,57 @@ public partial class GameManager : Control
             _dealerLabel.Text = $"DEALER: {_dealer.Hand.Total}";
         }
 
-        if (insuranceBet > 0 && dealerBJ)
+        if (dealerBJ && insuranceBet > 0 && !playerBJ)
         {
-            foreach (int denom in ChipBreakdown(insuranceBet * 2))
+            // Dealer BJ, player no BJ, insurance won.
+            // The insurance stake was never shown on the felt, so the whole
+            // layout reads as a push: the original bet chips return (Push
+            // outcome), and we add a payout stack equal to the stake to
+            // represent the insurance bet coming back to the player.
+            // The insurance winnings offset the lost main bet, so the net
+            // bankroll effect is break-even.
+            foreach (int denom in ChipBreakdown(insuranceBet))
                 _payoutChipsPerHand[0].Add(denom);
+
             _player.WinInsurance(insuranceBet);
             RebuildChipStack();
             await Delay(0.5);
             PlayChipWinSound();
+
+            _messageLabel.Text = "Dealer blackjack ~ You lose, but insurance pays";
+            _handOutcomes.Clear();
+            _handOutcomes.Add(HandOutcome.Push);
+            await FinishRoundAsync();
+            return;
+        }
+
+        if (dealerBJ && playerBJ && insuranceBet > 0)
+        {
+            // Both BJ, insurance won.
+            // The main bet pushes and insurance returns 3x the stake. The
+            // insurance return appears as a payout stack; the bet returns
+            // via the Push outcome.
+            foreach (int denom in ChipBreakdown(insuranceBet * 3))
+                _payoutChipsPerHand[0].Add(denom);
+
+            _player.WinInsurance(insuranceBet);
+            _player.PushBet(_player.Hands[0]);
+            RebuildChipStack();
+            await Delay(0.5);
+            PlayChipWinSound();
+
+            _messageLabel.Text = "Both blackjack ~ push. Insurance pays.";
+            _handOutcomes.Clear();
+            _handOutcomes.Add(HandOutcome.Push);
+            await FinishRoundAsync();
+            return;
         }
 
         if (dealerBJ && playerBJ)
         {
+            // Both BJ, no insurance.
             _player.PushBet(_player.Hands[0]);
-            _messageLabel.Text = insuranceBet > 0
-                ? "Both blackjack ~ push. Insurance pays."
-                : "Both blackjack ~ push.";
+            _messageLabel.Text = "Both blackjack ~ push.";
             _handOutcomes.Clear();
             _handOutcomes.Add(HandOutcome.Push);
             await FinishRoundAsync();
@@ -1129,18 +1176,20 @@ public partial class GameManager : Control
 
         if (dealerBJ)
         {
-            _messageLabel.Text = insuranceBet > 0
-                ? "Dealer blackjack ~ You lose, but insurance pays"
-                : "Dealer blackjack ~ You lose";
+            // Dealer BJ, player no BJ, no insurance (or declined).
+            _messageLabel.Text = "Dealer blackjack ~ You lose";
             _handOutcomes.Clear();
-            // With insurance, the round nets out to roughly break-even.
-            _handOutcomes.Add(insuranceBet > 0 ? HandOutcome.Push : HandOutcome.Lose);
+            _handOutcomes.Add(HandOutcome.Lose);
             await FinishRoundAsync();
             return;
         }
 
         if (playerBJ)
         {
+            // Player BJ, dealer no BJ. Insurance, if taken, was lost, but
+            // the stake was never shown as chips so the payout is just the
+            // standard 3:2 winnings. The original bet returns via the Win
+            // outcome.
             int winnings = _player.Hands[0].Bet * 3 / 2;
             foreach (int denom in ChipBreakdown(winnings))
                 _payoutChipsPerHand[0].Add(denom);
@@ -1160,6 +1209,16 @@ public partial class GameManager : Control
             return;
         }
 
+        if (insuranceBet > 0 && !dealerBJ && !playerBJ)
+        {
+            // Scenario 4: no BJ anywhere, insurance lost. Show the stake in the
+            // payout slot, then animate it sliding away toward the dealer. Round
+            // continues with the player's turn.
+            foreach (int denom in ChipBreakdown(insuranceBet))
+                _payoutChipsPerHand[0].Add(denom);
+            await AnimateInsuranceLossAsync();
+        }
+
         if (insuranceBet > 0)
             _messageLabel.Text = $"Insurance lost (${insuranceBet:N0}). Your move";
         else
@@ -1175,6 +1234,26 @@ public partial class GameManager : Control
         UpdateTopBar();
         await Delay(0.5);
         await ContinueAfterInsuranceAsync(insuranceBet);
+    }
+
+    private async Task AnimateInsuranceLossAsync()
+    {
+        RebuildChipStack();
+        await Delay(0.4);
+
+        if (_payoutChipContainers.Count == 0) return;
+        var payout = _payoutChipContainers[0];
+
+        var slide = payout.CreateTween();
+        slide.TweenProperty(payout, "position:y",
+            payout.Position.Y - ChipSlideDistance, ChipSlideSeconds);
+        await ToSignal(slide, Tween.SignalName.Finished);
+
+        var fade = payout.CreateTween();
+        fade.TweenProperty(payout, "modulate:a", 0.0f, ChipFadeSeconds);
+        await ToSignal(fade, Tween.SignalName.Finished);
+
+        _payoutChipsPerHand[0].Clear();
     }
 
     private async Task OnInsuranceNoAsync()
